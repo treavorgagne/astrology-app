@@ -15,38 +15,39 @@ import Aquarius from "../images/aquarius.png";
 import Pisces from "../images/pisces.png";
 import Modal from "@mui/material/Modal";
 
-import Box, { BoxProps } from "@mui/material/Box";
+import { experimentalStyled as styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
-function Item(props: BoxProps) {
-  const { sx, ...other } = props;
-  return (
-    <Box
-      sx={{
-        p: 1,
-        m: 1,
-        border: "1px solid",
-        borderRadius: 2,
-        fontSize: "0.875rem",
-        fontWeight: "700",
-        ...sx,
-      }}
-      {...other}
-    />
-  );
-}
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "center",
+  color: theme.palette.common.black,
+  backgroundColor: theme.palette.grey[200],
+  "&:hover": {
+    backgroundColor: theme.palette.common.white,
+    cursor: "pointer",
+  },
+}));
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 550,
-  bgcolor: "grey.200",
-  borderColor: "common.black",
-  border: "2px solid",
-  borderRadius: 2,
-  boxShadow: 24,
-  p: 4,
+const style = () => {
+  const { innerWidth: w, innerHeight: h } = window;
+  console.log(w, h);
+  return {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: w >= 800 ? 500 : w * 0.8,
+    bgcolor: "grey.200",
+    borderColor: "common.black",
+    border: "2px solid",
+    borderRadius: 2,
+    boxShadow: 24,
+    p: 4,
+  };
 };
 
 export default function ZodiacList() {
@@ -62,50 +63,30 @@ export default function ZodiacList() {
 
   return (
     <div style={{ width: "100%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          p: 1,
-          m: 1,
-          borderRadius: 1,
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
-        {itemData.map((item) => (
-          <Item
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="space-between"
-            key={item.img}
-            onClick={handleOpen}
-            sx={{
-              width: 200,
-              height: 200,
-              pt: 2,
-              bgcolor: (theme) => theme.palette.grey[200],
-              borderColor: (theme) => theme.palette.common.black,
-              "&:hover": {
-                backgroundColor: (theme) => theme.palette.common.white,
-                cursor: "pointer",
-              },
-            }}
-          >
-            <img src={`${item.img}`} alt={item.title} loading="eager" />
-            <Tooltip title={item.date} placement="top">
-              <Typography
-                textAlign={"center"}
-                variant="h4"
-                component="div"
-                gutterBottom
-              >
-                {item.title}
-              </Typography>
-            </Tooltip>
-          </Item>
-        ))}
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 2 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {itemData.map((item) => (
+            <Grid onClick={handleOpen} item xs={2} sm={4} md={3} key={index}>
+              <Item>
+                <img src={`${item.img}`} alt={item.title} loading="eager" />
+                <Tooltip title={item.date} placement="top">
+                  <Typography
+                    textAlign={"center"}
+                    variant="h4"
+                    component="div"
+                    gutterBottom
+                  >
+                    {item.title}
+                  </Typography>
+                </Tooltip>
+              </Item>
+            </Grid>
+          ))}
+        </Grid>
       </Box>
       <Modal
         open={open}
