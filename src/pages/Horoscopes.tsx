@@ -12,7 +12,7 @@ export default function About() {
         }}
       >
         <Typography variant="h2" component="div" gutterBottom>
-          Horoscopes Generator
+          Horoscope Generator
         </Typography>
       </Box>
       <Box
