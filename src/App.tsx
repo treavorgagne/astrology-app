@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 
 import Horoscopes from "./pages/Horoscopes";
 
@@ -16,7 +15,6 @@ const darkTheme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-      {/* <CssBaseline /> */}
       <Routes>
         <Route path="/" element={<Horoscopes />} />
       </Routes>

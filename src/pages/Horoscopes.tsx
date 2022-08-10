@@ -1,6 +1,5 @@
 import React from "react";
-import { Typography, Container, Box, Paper } from "@mui/material/";
-import { styled } from "@mui/material/styles";
+import { Typography, Container, Box } from "@mui/material/";
 import Zodiacs from "../components/ZodiacList";
 
 export default function About() {
