@@ -33,8 +33,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const style = () => {
-  const { innerWidth: w, innerHeight: h } = window;
-  console.log(w, h);
+  const { innerWidth: w } = window;
   return {
     position: "absolute" as "absolute",
     top: "50%",
@@ -60,7 +59,7 @@ export default function ZodiacList() {
     }).format(Date.now())
   );
   const index = date % 10;
-
+  const { innerWidth: w } = window;
   return (
     <div style={{ width: "100%" }}>
       <Box sx={{ flexGrow: 1 }}>
@@ -76,7 +75,7 @@ export default function ZodiacList() {
                 <Tooltip title={item.date} placement="top">
                   <Typography
                     textAlign={"center"}
-                    variant="h4"
+                    variant={w >= 800 ? "h4" : "h5"}
                     component="div"
                     gutterBottom
                   >
